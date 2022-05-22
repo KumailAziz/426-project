@@ -7,32 +7,35 @@ double precision :: kB,JJ,mu
 double precision :: E,Eold,dE,M,Mavg,P
 double precision :: B,dB,Bmax,T,dT,Tmax
 double precision :: Eavg,E2avg,C
+double precision :: M2avg,X
 integer, allocatable :: S(:,:)
 
 !Open Data File:======================
 ! open(unit=10,file="M.txt")
 ! open(unit=11,file="M-T(L=10).txt")
 ! open(unit=12,file="M-B(L=10).txt")
-open(unit=13,file="C-T(L=10).txt")
+! open(unit=13,file="C-T(L=10).txt")
+open(unit=14,file="X-B(L=50).txt")
 
 !Parameters:===========
 JJ=1.0d0 !Interaction Strength
 kB=1.0d0 !Boltzmann Constant
 mu=1.0d0 !Magnetic Moment
-L=10 !Grid Size
+L=50 !Grid Size
 T=0.5d0; dT=0.1d0; Tmax=5.0d0; !J/kB 
-B=0.0d0; dB=0.1d0; Bmax=5.0d0; !J/mu 
+B=-5.0d0; dB=0.1d0; Bmax=5.0d0; !J/mu 
 
 allocate(S(0:L+1,0:L+1))
 
 ! S(:,:)=1 !Setting All Spins To +1
 
 !Loop Over Temperature:=====================
-! do while(B.le.Bmax)
-do while(T.le.Tmax)
+do while(B.le.Bmax)
+! do while(T.le.Tmax)
 	S(:,:)=1 !Setting All Spins To +1
 	Mavg=0.0d0 !Reset <M> "Thermal Average Magnetization"
 	Eavg=0.0d0 !Reset <E> "Thermal Average Energy"
+	M2avg=0.0d0 !Reset <M**2> "Thermal Average Square Magnetization"
 	E2avg=0.0d0 !Reset <E**2> "Thermal Average Square Energy"
 	
 	!Loop Over MonteCarlo Steps:--------
@@ -65,7 +68,7 @@ do while(T.le.Tmax)
 		!Calculate Magnetization Per Spin
 		M=sum(S(1:L,1:L))/dble(L**2)
 		
-		!Heat Capacity:-----
+		!Heat Capacity:------------
 		E=0.0d0 !Reset Energy
 		!Spin Loop
 		do i=1,L
@@ -77,24 +80,32 @@ do while(T.le.Tmax)
 		Eavg=Eavg+E/1000
 		E2avg=E2avg+E**2/1000
 		
+		!Magnetic Susceptibility:-------
+		Mavg=Mavg+M/1000
+		M2avg=M2avg+M**2/1000
+		
 		!Writing Results
 		! write(10,*) mc,M
 		
 		!Calculate Thermal Average Magnetization
-		if(imc.gt.900) Mavg=Mavg+M/100
+		! if(imc.gt.900) Mavg=Mavg+M/100
 	enddo
 	
 	!Calculate Heat Capacity
 	C=(E2avg-Eavg**2)**2/(kB*T**2)
 	
+	!Calculate Magnetic Susceptibility
+	X=(M2avg-Mavg**2)**2/(kB*T)
+	
 	!Writing Results
 	! write(11,*) T,Mavg
 	! write(12,*) B,Mavg
-	write(13,*) T,C
+	! write(13,*) T,C
+	write(14,*) B,X
 	
 	!Update T,B
-	T=T+dT
-	! B=B+dB
+	! T=T+dT
+	B=B+dB
 enddo
 
 !Deallocation & Closing:========================
@@ -102,7 +113,8 @@ deallocate(S)
 ! close(10)
 ! close(11)
 ! close(12)
-close(13)
+! close(13)
+close(14)
 
 end program Skeleton_2D
 
