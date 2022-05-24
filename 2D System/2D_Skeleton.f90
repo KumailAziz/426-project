@@ -12,11 +12,11 @@ integer, allocatable :: S(:,:)
 
 call randomize()
 
-!Open Data File:======================
-! open(unit=10,file="M.txt")
-! open(unit=11,file="M-T(L=10).txt")
-! open(unit=12,file="M-B(L=10).txt")
-! open(unit=13,file="C-T(L=10).txt")
+!Open Data File:======================	
+! open(unit=10,file="M-T(L=10).txt")
+! open(unit=11,file="M-B(L=10).txt")
+! open(unit=12,file="C-T(L=10).txt")
+! open(unit=13,file="X-B(L=10).txt")
 open(unit=14,file="X-T(L=10).txt")
 
 !Parameters:===========
@@ -64,11 +64,6 @@ do while(T.le.Tmax)
 		Mavg=Mavg+M/1000
 		M2avg=M2avg+M**2/1000
 		
-		!Writing Results
-		! write(10,*) mc,M
-		
-		!Calculate Thermal Average Magnetization
-		! if(imc.gt.900) Mavg=Mavg+M/100
 	enddo
 	
 	!Calculate Heat Capacity
@@ -78,10 +73,10 @@ do while(T.le.Tmax)
 	X=(M2avg-Mavg**2)**2/(kB*T)
 	
 	!Writing Results
-	! write(11,*) T,Mavg
-	! write(12,*) B,Mavg
-	! write(13,*) T,C
-	! write(14,*) B,X
+	! write(10,*) T,Mavg
+	! write(11,*) B,Mavg
+	! write(12,*) T,C
+	! write(13,*) B,X
 	write(14,*) T,X
 	
 	!Update T,B
@@ -131,7 +126,7 @@ double precision :: dE,Eold,P,kB=1.0d0,mu=1.0d0,rnd
 		enddo
 	enddo
 
-end subroutine
+end subroutine Spins
 
 !Randomize Subroutine:==========================
 subroutine randomize()
