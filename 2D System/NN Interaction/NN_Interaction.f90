@@ -17,29 +17,29 @@ program NN_Interaction
 	
 	!Open Data File:======================
 	! open(unit=10,file="M.txt")
-	! open(unit=11,file="M-T(L=10).txt")
-	open(unit=12,file="M-B(L=10).txt")
-	! open(unit=13,file="C-T(L=10).txt")
+	! open(unit=11,file="M-T(L=50)(J=-2.0).txt")
+	! open(unit=12,file="M-B(L=10).txt")
+	open(unit=13,file="C-T(L=50)(J=0.5).txt")
 	! open(unit=14,file="X-T(L=10).txt")
 	
 	!Parameters:===========
-	JJ=1.0d0 !Interaction Strength
+	JJ=0.5d0 !Interaction Strength
 	kB=1.0d0 !Boltzmann Constant
 	mu=1.0d0 !Magnetic Moment
-	L=10 !Grid Size
-	T=2.27d0; dT=0.02d0; Tmax=5.0d0; !J/kB
-	B=0.0d0; dB=0.1d0; Bmax=5.0d0; !J/mu 
+	L=50 !Grid Size
+	T=0.1d0; dT=0.01d0; Tmax=5.0d0; !J/kB
+	B=-0.0d0; dB=0.1d0; Bmax=5.0d0; !J/mu 
 	
 	allocate(S(0:L+1,0:L+1))
 	
 	S(:,:)=1 !Setting All Spins To +1
 	
 	!Loop Over Temperature & Magnetic Field:=====================
-	do iB=-nint(2*Bmax/dB),nint(2*Bmax/dB)
-		B=-abs(dB*iB)+Bmax
+	! do iB=-nint(2*Bmax/dB),nint(2*Bmax/dB)
+		! B=-abs(dB*iB)+Bmax
 	! do while(B.le.Bmax)
-	! do while(T.le.Tmax)
-		! S(:,:)=1 !Setting All Spins To +1
+	do while(T.le.Tmax)
+		S(:,:)=1 !Setting All Spins To +1
 		Mavg=0.0d0 !Reset <M> "Thermal Average Magnetization"
 		Eavg=0.0d0 !Reset <E> "Thermal Average Energy"
 		M2avg=0.0d0 !Reset <M**2> "Thermal Average Square Magnetization"
@@ -54,16 +54,16 @@ program NN_Interaction
 			M=sum(S(1:L,1:L))/dble(L**2)
 			
 			!Heat Capacity:------------
-			! E=0.0d0 !Reset Energy
-			! !Spin Loop
-			! do i=1,L
-				! do j=1,L
-					! E=E-JJ*(S(i,j+1)+S(i,j-1)+S(i+1,j)+S(i-1,j))*S(i,j)
-				! enddo
-			! enddo
-			! E=E/2.0d0 !Because of Overcounting
-			! Eavg=Eavg+E/500
-			! E2avg=E2avg+E**2/500
+			E=0.0d0 !Reset Energy
+			!Spin Loop
+			do i=1,L
+				do j=1,L
+					E=E-JJ*(S(i,j+1)+S(i,j-1)+S(i+1,j)+S(i-1,j))*S(i,j)
+				enddo
+			enddo
+			E=E/2.0d0 !Because of Overcounting
+			Eavg=Eavg+E/1000
+			E2avg=E2avg+E**2/1000
 			
 			!Magnetic Susceptibility:-------
 			! Mavg=Mavg+M/1000
@@ -73,24 +73,24 @@ program NN_Interaction
 			! write(10,*) imc,M
 			
 			!Calculate Thermal Average Magnetization
-			if(imc.gt.900) Mavg=Mavg+M/100
+			! if(imc.gt.1300) Mavg=Mavg+M/200
 		enddo
 		
 		!Calculate Heat Capacity
-		! C=(E2avg-Eavg**2)**2/(kB*T**2)
+		C=(E2avg-Eavg**2)**2/(kB*T**2)
 		
 		!Calculate Magnetic Susceptibility
 		! X=(M2avg-Mavg**2)**2/(kB*T)
 		
 		!Writing Results
 		! write(11,*) T,Mavg
-		write(12,*) B,Mavg
-		! write(13,*) T,C
+		! write(12,*) B,Mavg
+		write(13,*) T,C
 		! write(14,*) B,X
 		! write(14,*) T,X
 		
 		!Update T,B
-		! T=T+dT
+		T=T+dT
 		! B=B+dB
 	enddo
 	
@@ -98,8 +98,8 @@ program NN_Interaction
 	deallocate(S)
 	! close(10)
 	! close(11)
-	close(12)
-	! close(13)
+	! close(12)
+	close(13)
 	! close(14)
 	
 	call cpu_time(finish)
