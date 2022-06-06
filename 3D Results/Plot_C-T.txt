@@ -1,0 +1,17 @@
+# Plots Specific Heat per Spin with time form Ising Model
+
+reset 
+
+#set term qt font "Cambria"
+
+set title "Specific heat per spin vs temperature | 3D System" font "Cambria, 20"
+set xlabel "T (J/k_B)" font "Cambria, 18"
+set ylabel "C_{spin}" font "Cambria, 18"
+set tics font "Cambria, 10"
+set key font "Cambria, 12"
+
+set size square
+
+plot "C-T(L=6)-3D.txt" u 1:2 w p lc 7 pt 7 ps 1 t "L=6",\
+"C-T(L=12)-3D.txt" u 1:2 w p lc 6 pt 7 ps 1 t "L=12",\
+"C-T(L=20)-3D.txt" u 1:2 w p lc 4 pt 7 ps 1 t "L=20"
