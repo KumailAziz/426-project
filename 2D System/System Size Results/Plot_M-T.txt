@@ -1,0 +1,18 @@
+# Plots Average Magnetization with time form Ising Model
+
+reset 
+
+#set term qt font "Cambria"
+
+set title "Average Magnetization with temperature | L=50" font "Cambria, 20"
+set xlabel "T (J/k_B)" font "Cambria, 18"
+set ylabel "<M>" font "Cambria, 18"
+set tics font "Cambria, 10"
+
+set size square
+set key font "Cambria, 12"
+#set size ratio -1
+
+plot "M-T(L=10).txt" u 1:2 w lp ls 4 lc 7 pt 7 ps 1 t "L=10",\
+"M-T(L=25).txt" u 1:2 w lp ls 2 lc 6 pt 7 ps 1 t "L=25",\
+"M-T(L=50).txt" u 1:2 w lp ls 2 lc 4 pt 7 ps 1 t "L=50"
