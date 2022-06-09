@@ -1,0 +1,99 @@
+reset 
+#set term qt
+
+set grid
+#set key off
+set key font "Cambria, 12"
+
+# MAGNETIZATION vs TEMPERATURE (M vs T):============================================
+	set title "Magnetization vs Temperature | L=50" font "Cambria, 20"
+	set tics font "Cambria, 12"
+	set xlabel "T (J/k_B)" font "Cambria, 15"
+	set ylabel "<M>" font "Cambria, 15"
+	set mxtics 2
+	set grid mxtics
+	set yrange [-0.2:1.1]
+	set xrange [0:5]
+	set size square
+	plot "M-T(L=50)(J=1.0).txt" w lp pt 7 ps 0.8 lc rgb "#E0457F" t "J=1.0 (FERRO)",\
+		 "M-T(L=50)(J=-1.0).txt" w lp pt 7 ps 0.8 lc rgb "#41924B" t "J=-1.0 (ANTIFERRO)",\
+	
+	#plot "M-T(L=50)(J=0.5).txt" w lp pt 7 ps 0.8 lc rgb "#E0457F" t "J=0.5",\
+	#	 "M-T(L=50)(J=1.0).txt" w lp pt 7 ps 0.8 lc rgb "#41924B" t "J=1.0",\
+	#	 "M-T(L=50)(J=1.5).txt" w lp pt 7 ps 0.8 lc rgb "#0066B3" t "J=1.5",\
+	#	 "M-T(L=50)(J=2.0).txt" w lp pt 7 ps 0.8 lc rgb "#BF344E" t "J=2.0",\
+	#	 "M-T(L=50)(J=2.5).txt" w lp pt 7 ps 0.8 lc rgb "#FF8000" t "J=2.5"
+	
+# MAGNETIZATION vs MAGNETIC FIELD (M vs B):=========================================
+	#set title "Hysteresis Loop | L=10, T=1 J/k_B" font "Cambria, 20"
+	#set tics font "Cambria, 12"
+	#set xlabel "B (J/μ)" font "Cambria, 15"
+	#set ylabel "<M>" font "Cambria, 15"
+	#set size square
+	#plot "M-B(L=10)(J=1.0).txt" w lp pt 7 ps 0.4 lw 2.0 lc rgb "#41924B" t "J=1.0" ,\
+	#	 "M-B(L=10)(J=1.5).txt" w lp pt 7 ps 0.4 lw 2.0 lc rgb "#0066B3" t "J=1.5" ,\
+	#	 "M-B(L=10)(J=2.0).txt" w lp pt 7 ps 0.4 lw 2.0 lc rgb "#BF344E" t "J=2.0" 
+
+# HEAT CAPACITY vs TEMPERATURE (C vs T):============================================
+	#set title "Heat Capacity vs Temeprature | L=50" font "Cambria, 20"
+	#set tics font "Cambria, 12"
+	#set xlabel "T (J/k_B)" font "Cambria, 15"
+	#set ylabel "C" font "Cambria, 15"
+	#set mxtics 2
+	#set grid mxtics
+	#set size square
+	#plot "C-T(L=50)(J=0.5).txt" w p pt 7 ps 0.8 lc rgb "#E0457F" t "J=0.5",\
+	#	 "C-T(L=50)(J=1.0).txt" w p pt 7 ps 0.8 lc rgb "#41924B" t "J=1.0",\
+	#	 "C-T(L=50)(J=1.5).txt" w p pt 7 ps 0.8 lc rgb "#0066B3" t "J=1.5"
+
+# MAGNETIC SUSCEPTIBILITY vs MAGNETIC FIELD (χ vs B):===============================
+	#set title "Magnetic Susceptibility vs Magnetic Field | L=10" font "Cambria, 20"
+	#set tics font "Cambria, 12"
+	#set xlabel "B (J/μ)" font "Cambria, 15"
+	#set ylabel "χ" font "Cambria, 15"
+	#set size square
+	##plot "X-B(L=10)(J=-2.0).txt" w lp pt 7 ps 0.8 lc rgb "#52A7CC" t "J=-1.0"
+	#plot "X-B(L=10)(J=1.0).txt" w lp pt 7 ps 0.8 lc rgb "#41924B" t "J=1.0",\
+	#	 "X-B(L=10)(J=1.5).txt" w lp pt 7 ps 0.8 lc rgb "#0066B3" t "J=1.5",\
+	#	 "X-B(L=10)(J=2.0).txt" w lp pt 7 ps 0.8 lc rgb "#BF344E" t "J=2.0"
+	
+# MAGNETIC SUSCEPTIBILITY vs TEMPERATURE (χ vs T):==================================
+	#set title "Magnetic Susceptibility vs Temeprature" font "Cambria, 20"
+	#set tics font "Cambria, 12"
+	#set xlabel "T (J/k_B)" font "Cambria, 15"
+	#set ylabel "χ" font "Cambria, 15"
+	#set size square 	
+	#plot "X-T(L=40)(J=-1.0).txt" w lp pt 7 ps 0.8 lc rgb "#0066B3" t "L=40"
+	#	 #"X-T(L=20)(J=-1.0).txt" w lp pt 7 ps 0.8 lc rgb "#41924B" t "L=20",\
+	#	 #"X-T(L=40)(J=-1.0).txt" w lp pt 7 ps 0.8 lc rgb "#0066B3" t "L=40"
+	#
+	##plot "X-T(L=10)(J=0.5).txt" w lp pt 7 ps 0.8 lc rgb "#E0457F" t "J=0.5",\
+	##	 "X-T(L=10)(J=1.0).txt" w lp pt 7 ps 0.8 lc rgb "#41924B" t "J=1.0",\
+	##	 "X-T(L=10)(J=1.5).txt" w lp pt 7 ps 0.8 lc rgb "#BF344E" t "J=1.5",\
+	##	 "X-T(L=10)(J=2.0).txt" w lp pt 7 ps 0.8 lc rgb "#0066B3" t "J=2.0",\
+	##	 "X-T(L=10)(J=2.5).txt" w lp pt 7 ps 0.8 lc rgb "#FF8000" t "J=2.5"
+
+# Coercive Field vs Coupling Constant:=============================================
+	#set title "Coercive Field vs Coupling Constant | L=10" font "Cambria, 20"
+	#set tics font "Cambria, 12"
+	#set xlabel "J" font "Cambria, 15"
+	#set ylabel "Bc (J/μ)" font "Cambria, 15"
+	#set size square
+	#
+	#f(x)=a*x+b
+	#fit f(x) "J-Bc.txt" via a,b
+	#
+	#plot "J-Bc.txt" w lp pt 7 ps 0.8 lc rgb "#BF344E" t "Data", f(x) lw 2 lc rgb "#6CCA51" t "3.21x-3"
+	
+# Fitting for Antiferromagnetic material:==========================================
+	#set title "Finding Néel Temperature | L=40, Tn = 12.247 J/μ" font "Cambria, 20"
+	#set tics font "Cambria, 12"
+	#set xlabel "T (J/k_B)" font "Cambria, 15"
+	#set ylabel "1/χ" font "Cambria, 15"
+	#set size square
+	#
+	#f(x)=a*x+b
+	#fit[2.5:] f(x) "X-T(L=40)(J=-1.0).txt" u 1:(1/$2) via a,b
+	#
+	#set xrange[5.0:]
+	#plot "X-T(L=40)(J=-1.0).txt" u 1:(1/$2) w lp lc rgb "#0066B3" t "Data", f(x) lw 4 lc rgb "#FD866E" t "Fit"
